@@ -1,0 +1,126 @@
+﻿<div class="recipe-detail-container">
+  @if (recipe) {
+    <div class="recipe-header">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+        <h1 class="title" style="margin-bottom: 0;">{{ recipe.title }}</h1>
+        <button class="btn-favorite" (click)="toggleFavorite()" [title]="isFavorite ? 'Remover dos favoritos' : 'Favoritar'">
+          {{ isFavorite ? '🧡' : '🤍' }}
+        </button>
+      </div>
+      <div class="rating-summary">
+        <span class="stars">
+          @for (star of [1, 2, 3, 4, 5]; track star) {
+            <i class="star" [class.filled]="star <= averageRating">★</i>
+          }
+        </span>
+        <span class="rating-number">{{ averageRating | number:'1.1-1' }} ({{ reviews.length }} avaliações)</span>
+      </div>
+      <p class="author">Enviado por: <strong>{{ recipe.user?.name || 'Desconhecido' }}</strong> | Categoria: <strong>{{ recipe.category?.name || 'Não informada' }}</strong></p>
+
+      <div class="meta-actions">
+        @if (currentUserId && currentUserId !== recipe.userId) {
+          <button class="btn-favorite" (click)="toggleFavorite()">
+            <span class="heart" [class.favorited]="isFavorite">🧡</span> {{ isFavorite ? 'Salvo!' : 'Salvar Receita' }}
+          </button>
+        }
+      </div>
+
+      @if (currentUserId === recipe.userId) {
+        <div class="recipe-actions">
+          <a class="btn-edit" [routerLink]="['/recipe/edit', recipe.id]">✏️ Editar Receita</a>
+          <button class="btn-delete" (click)="deleteRecipe()">🗑️ Excluir</button>
+        </div>
+      }
+    </div>
+    
+    <div class="recipe-banner" [style.backgroundImage]="recipe.imageUrl ? 'url(' + recipe.imageUrl + ')' : 'none'" [style.backgroundColor]="recipe.imageUrl ? 'transparent' : '#e0e0e0'">
+      @if (!recipe.imageUrl) {
+        <div class="no-image">Sem Imagem</div>
+      }
+    </div>
+
+    <div class="recipe-body">
+      @if (recipe.description) {
+        <div class="description">
+          <p>{{ recipe.description }}</p>
+        </div>
+      }
+
+      <div class="grid-content">
+        <div class="ingredients-section">
+          <h3>🥘 Ingredientes</h3>
+          <pre>{{ recipe.ingredients }}</pre>
+        </div>
+
+        <div class="instructions-section">
+          <h3>👨‍🍳 Modo de Preparo</h3>
+          <pre>{{ recipe.instructions }}</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO DE COMENTÁRIOS E AVALIAÇÕES -->
+    <div class="reviews-section">
+      <h3>Comentários e Avaliações</h3>
+      
+      <!-- Formulário de Nova Avaliação -->
+      @if (currentUserId) {
+        @if (currentUserId === recipe.userId) {
+          <div class="login-prompt">
+            <p>Você é o criador desta receita. Não é possível avaliá-la.</p>
+          </div>
+        } @else if (hasUserReviewed) {
+          <div class="login-prompt">
+            <p>Obrigado! Você já enviou uma avaliação para esta receita.</p>
+          </div>
+        } @else {
+          <div class="review-form">
+            <h4>Deixe sua avaliação</h4>
+            <div class="rating-input">
+              @for (star of [1, 2, 3, 4, 5]; track star) {
+                <span class="star-input" 
+                  (mouseenter)="setHoverRating(star)" 
+                  (mouseleave)="setHoverRating(0)"
+                  (click)="setRating(star)"
+                  [class.active]="star <= (hoveredRating || newReviewRating)">★</span>
+              }
+            </div>
+            <textarea [(ngModel)]="newReviewText" placeholder="O que você achou dessa receita?" rows="3"></textarea>
+            <button class="btn-submit-review" (click)="submitReview()">Enviar Avaliação</button>
+          </div>
+        }
+      } @else {
+        <div class="login-prompt">
+          <p>Faça <a routerLink="/login">login</a> para avaliar esta receita.</p>
+        </div>
+      }
+
+      <!-- Lista de Comentários -->
+      <div class="reviews-list">
+        @if (reviews.length === 0) {
+          <p class="no-reviews">Nenhuma avaliação ainda. Seja o primeiro a comentar!</p>
+        } @else {
+          @for (review of reviews; track review.id) {
+            <div class="review-card">
+              <div class="review-header">
+                <strong>{{ review.user?.name || 'Usuário' }}</strong>
+                <span class="review-date">{{ review.createdAt | date:'dd/MM/yyyy' }}</span>
+              </div>
+              <div class="review-rating">
+                @for (star of [1, 2, 3, 4, 5]; track star) {
+                  <span class="star" [class.filled]="star <= review.rating">★</span>
+                }
+              </div>
+              <p class="review-text">{{ review.text }}</p>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+  } @else {
+    <div class="loading">
+      <h2>Carregando receita...</h2>
+    </div>
+  }
+</div>

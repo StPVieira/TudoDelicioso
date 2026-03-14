@@ -1,0 +1,35 @@
+﻿<div class="recipe-form-container">
+  <h2>{{ isEditMode ? 'Editar Receita' : 'Nova Receita' }}</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Título da Receita</label>
+      <input type="text" name="title" [(ngModel)]="recipe.title" required>
+    </div>
+    <div class="form-group">
+      <label>URL da Imagem</label>
+      <input type="text" name="imageUrl" [(ngModel)]="recipe.imageUrl">
+    </div>
+    <div class="form-group">
+      <label>Categoria</label>
+      <select name="category" [(ngModel)]="recipe.categoryId" required>
+        <option [ngValue]="0" disabled>Selecione uma categoria...</option>
+        @for (cat of categories; track cat.id) {
+          <option [ngValue]="cat.id">{{cat.name}}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Descrição Curta</label>
+      <textarea name="description" [(ngModel)]="recipe.description" rows="2"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Ingredientes</label>
+      <textarea name="ingredients" [(ngModel)]="recipe.ingredients" rows="5" required></textarea>
+    </div>
+    <div class="form-group">
+      <label>Modo de Preparo</label>
+      <textarea name="instructions" [(ngModel)]="recipe.instructions" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn-submit" [disabled]="recipe.categoryId === 0">Salvar Receita</button>
+  </form>
+</div>

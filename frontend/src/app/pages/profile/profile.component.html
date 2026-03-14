@@ -1,0 +1,39 @@
+﻿<div class="profile-container">
+  <h2>Meu Perfil</h2>
+  <div class="profile-actions">
+    <button class="btn-logout" (click)="logout()">Sair (Logout)</button>
+  </div>
+  
+  <div class="tabs">
+    <button class="tab-button" [class.active]="activeTab === 'my'" (click)="activeTab = 'my'">Minhas Receitas ({{ myRecipes.length }})</button>
+    <button class="tab-button" [class.active]="activeTab === 'saved'" (click)="activeTab = 'saved'">Receitas Salvas ({{ savedRecipes.length }})</button>
+  </div>
+
+  <div class="tab-content">
+    @if (activeTab === 'my') {
+      <h4>Minhas Receitas</h4>
+      @if (myRecipes.length === 0) {
+        <p>Você ainda não enviou nenhuma receita.</p>
+      } @else {
+        <div class="recipe-grid">
+          @for (recipe of myRecipes; track recipe.id) {
+            <app-recipe-card [recipe]="recipe"></app-recipe-card>
+          }
+        </div>
+      }
+    }
+
+    @if (activeTab === 'saved') {
+      <h4>Receitas Salvas</h4>
+      @if (savedRecipes.length === 0) {
+        <p>Você ainda não salvou nenhuma receita.</p>
+      } @else {
+        <div class="recipe-grid">
+          @for (recipe of savedRecipes; track recipe.id) {
+            <app-recipe-card [recipe]="recipe"></app-recipe-card>
+          }
+        </div>
+      }
+    }
+  </div>
+</div>

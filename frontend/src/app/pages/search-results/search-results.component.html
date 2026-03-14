@@ -1,0 +1,13 @@
+<div class="search-results-page">
+  <h1 *ngIf="searchQuery" class="search-title">Resultados para: "{{ searchQuery }}"</h1>
+  
+  <div class="recipe-grid" *ngIf="results.length > 0; else noResults">
+    <app-recipe-card *ngFor="let recipe of results" [recipe]="recipe"></app-recipe-card>
+  </div>
+  
+  <ng-template #noResults>
+    <div class="no-results">
+      <p>Nenhum resultado encontrado para sua busca.</p>
+    </div>
+  </ng-template>
+</div>

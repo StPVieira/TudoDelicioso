@@ -1,0 +1,22 @@
+﻿<header class="header">
+  <div class="logo" routerLink="/">
+    <h1>TUDO<span>DELICIOSO</span></h1>
+  </div>
+  <form class="search-bar" (ngSubmit)="onSearch()">
+    <input 
+      type="text" 
+      placeholder="Procure uma receita, um ingrediente..."
+      [(ngModel)]="searchQuery"
+      name="searchQuery"
+    >
+    <button type="submit" class="btn-search">Procurar</button>
+  </form>
+  <div class="user-actions" style="display: flex; gap: 15px; align-items: center;">
+    <button routerLink="/recipe/new" style="background: none; border: none; color: #ff6a28; font-weight: bold;">+ Enviar Receita</button>
+    @if (userService.currentUser$ | async; as user) {
+      <button class="btn-user" routerLink="/profile">Olá, {{ user.name.split(' ')[0] }}</button>
+    } @else {
+      <button class="btn-user" routerLink="/login">Entrar</button>
+    }
+  </div>
+</header>

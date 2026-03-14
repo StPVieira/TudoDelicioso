@@ -1,0 +1,7 @@
+﻿<nav class="navbar">
+  <ul>
+    <li *ngFor="let category of categories">
+      <a [routerLink]="['/category', category.name]">{{ category.name.toUpperCase() }}</a>
+    </li>
+  </ul>
+</nav>

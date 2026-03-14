@@ -1,0 +1,31 @@
+.search-results-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.recipe-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.no-results {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.no-results p {
+  font-size: 1.2rem;
+  color: #666;
+}

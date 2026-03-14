@@ -1,0 +1,24 @@
+﻿<div class="user-form-container">
+  <h2>{{ isLoginMode ? 'Entrar' : 'Cadastrar' }}</h2>
+  <form (ngSubmit)="onSubmit()">
+    @if (!isLoginMode) {
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" name="name" [(ngModel)]="user.name" required>
+      </div>
+    }
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" name="email" [(ngModel)]="user.email" required>
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" name="password" [(ngModel)]="user.passwordHash" required>
+    </div>
+    <button type="submit" class="btn-submit">{{ isLoginMode ? 'Login' : 'Registrar' }}</button>
+  </form>
+  <p class="toggle-text">
+    {{ isLoginMode ? 'Não tem conta?' : 'Já tem conta?' }}
+    <button type="button" class="btn-toggle" (click)="toggleMode()">{{ isLoginMode ? 'Cadastre-se' : 'Faça login' }}</button>
+  </p>
+</div>

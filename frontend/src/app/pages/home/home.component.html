@@ -1,0 +1,11 @@
+﻿<div class="home-content">
+  <p class="welcome-text">Bem-vindo ao TudoDelicioso: o maior site de receitas com diversas receitas fáceis e rápidas para o seu dia a dia.</p>
+  
+  <div class="recipe-grid" *ngIf="recipes.length > 0">
+    <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-card>
+  </div>
+
+  <div *ngIf="recipes.length === 0">
+    <p>Carregando receitas...</p>
+  </div>
+</div>

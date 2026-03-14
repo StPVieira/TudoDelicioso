@@ -1,0 +1,1 @@
+.navbar { background-color: #f8f9fa; border-bottom: 2px solid #ff6a28; padding: 10px 0; } .navbar ul { display: flex; list-style: none; justify-content: center; gap: 20px; flex-wrap: wrap; } .navbar a { color: #555; font-size: 12px; font-weight: bold; padding: 5px 10px; } .navbar a:hover { color: #ff6a28; }

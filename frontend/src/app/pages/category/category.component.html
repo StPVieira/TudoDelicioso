@@ -1,0 +1,13 @@
+<div class="category-page">
+  <h1 *ngIf="categoryName" class="category-title">{{ categoryName }}</h1>
+  
+  <div class="recipe-grid" *ngIf="filteredRecipes.length > 0; else noRecipes">
+    <app-recipe-card *ngFor="let recipe of filteredRecipes" [recipe]="recipe"></app-recipe-card>
+  </div>
+  
+  <ng-template #noRecipes>
+    <div class="no-results">
+      <p>Não há resultados para essa busca.</p>
+    </div>
+  </ng-template>
+</div>

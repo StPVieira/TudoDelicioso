@@ -1,0 +1,47 @@
+.category-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+  border-bottom: 2px solid #ff6a28;
+  padding-bottom: 0.5rem;
+}
+
+.category-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+  border-bottom: 2px solid #ff6a28;
+  padding-bottom: 1rem;
+  display: inline-block;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.no-results {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.no-results p {
+  font-size: 1.2rem;
+  color: #666;
+}
